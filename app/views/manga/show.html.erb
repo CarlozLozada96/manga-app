@@ -1,0 +1,9 @@
+<h1><%= @manga['attributes']['title']['en'] %></h1>
+<p><%= @manga['attributes']['description']['en'] %></p>
+
+<h2>Chapters</h2>
+<ul>
+  <% @chapters['data'].each do |chapter| %>
+    <li><%= chapter['attributes']['title'] %> - <%= chapter['attributes']['volume'] %> </li>
+  <% end %>
+</ul>

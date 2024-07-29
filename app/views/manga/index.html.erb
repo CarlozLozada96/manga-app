@@ -1,0 +1,8 @@
+<h1>Manga List</h1>
+<ul>
+  <% @manga_list['data'].each do |manga| %>
+    <li>
+      <%= link_to manga['attributes']['title']['en'], manga_path(manga['id']) %>
+    </li>
+  <% end %>
+</ul>
