@@ -15,18 +15,18 @@ class MangaDexService
   end
 
   def get_chapters(manga_id)
-    self.class.get("/manga/#{manga_id}/feed", @options)
+    response = self.class.get("/manga/#{manga_id}/feed", @options)
+    handle_response(response)
   end
 
   private
 
   def handle_response(response)
     if response.success?
-      response
-    else
-      # Log the error or raise an exception
+      response.parsed_response
+    else   # Log the error or raise an exception
       Rails.logger.error("MangaDex API request failed: #{response.body}")
-      {} # or [] if you prefer
+      {}
     end
   end
   

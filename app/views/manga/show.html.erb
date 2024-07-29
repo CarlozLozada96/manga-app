@@ -3,7 +3,12 @@
 
 <h2>Chapters</h2>
 <ul>
-  <% @chapters['data'].each do |chapter| %>
-    <li><%= chapter['attributes']['title'] %> - <%= chapter['attributes']['volume'] %> </li>
+  <% @chapters.each do |chapter| %>
+    <li>
+      <%= chapter['attributes']['title'] %> 
+      <% if chapter['attributes']['volume'].present? %>
+        - Volume: <%= chapter['attributes']['volume'] %>
+      <% end %>
+    </li>
   <% end %>
 </ul>

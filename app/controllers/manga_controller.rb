@@ -9,17 +9,22 @@ class MangaController < ApplicationController
     @manga = MangaDexService.new.get_manga(params[:id])
     @chapters = MangaDexService.new.get_chapters(params[:id])
 
+    Rails.logger.debug("Manga Data: #{@manga.inspect}")
+    Rails.logger.debug("Chapters Data: #{@chapters.inspect}")
+
     if @manga.success?
       @manga = @manga['data']
     else
       @manga = {} # or handle the error as needed
     end
 
-    if @chapters.success?
+    if @chapters && @chapters['data']
       @chapters = @chapters['data']
     else
       @chapters = [] # or handle the error as needed
     end
+
+    Rails.logger.debug("Chapters Data Structure: #{@chapters.inspect}")
     
   end  
 
