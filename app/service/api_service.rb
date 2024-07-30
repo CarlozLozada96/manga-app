@@ -15,7 +15,7 @@ class MangaDexService
   end
 
   def get_chapters(manga_id)
-    response = self.class.get("/manga/#{manga_id}/feed", @options)
+    response = self.class.get("/chapter?manga=#{manga_id}", @options)
     handle_response(response)
   end
 

@@ -9,6 +9,14 @@
       <% if chapter['attributes']['volume'].present? %>
         - Volume: <%= chapter['attributes']['volume'] %>
       <% end %>
+
+      <% if chapter['attributes']['pages'].present? %>
+        <% chapter['attributes']['pages'].each do |page| %>
+          <img src="<%= page %>" alt="Chapter Image" />
+        <% end %>
+      <% else %>
+        <p>No images available.</p>
+      <% end %>
     </li>
   <% end %>
 </ul>
