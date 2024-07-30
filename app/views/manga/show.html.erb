@@ -1,0 +1,22 @@
+<h1><%= @manga['attributes']['title']['en'] %></h1>
+<p><%= @manga['attributes']['description']['en'] %></p>
+
+<h2>Chapters</h2>
+<ul>
+  <% @chapters.each do |chapter| %>
+    <li>
+      <%= chapter['attributes']['title'] %> 
+      <% if chapter['attributes']['volume'].present? %>
+        - Volume: <%= chapter['attributes']['volume'] %>
+      <% end %>
+
+      <% if chapter['attributes']['pages'].present? %>
+        <% chapter['attributes']['pages'].each do |page| %>
+          <img src="<%= page %>" alt="Chapter Image" />
+        <% end %>
+      <% else %>
+        <p>No images available.</p>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
