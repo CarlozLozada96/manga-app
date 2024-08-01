@@ -2,12 +2,12 @@ class MangaDexService
   include HTTParty
   base_uri ENV['BASE_URI']
 
-  def auth
-    @token = self.class.post('https://auth.mangadex.org/realms/mangadex/protocol/openid-connect/token',
-                             body: "grant_type=password&username=kajijangching@gmail.com&password=password&client_id=personal-client-bd1da4a1-e5b7-4ddd-82d1-fb73c9c6bce5-b317be28&client_secret=NigfmmZsMBTt7WK1mZWc9SdeRkgFhZMz",
-                             headers: { Content-Type: "application/x-www-form-urlencoded" }
-                            )
-  end
+  #def auth
+  #  @token = self.class.post('https://auth.mangadex.org/realms/mangadex/protocol/openid-connect/token',
+  #                           body: "grant_type=password&username=kajijangching@gmail.com&password=password&client_id=personal-client-bd1da4a1-e5b7-4ddd-82d1-fb73c9c6bce5-b317be28&client_secret=NigfmmZsMBTt7WK1mZWc9SdeRkgFhZMz",
+  #                           headers: { 'Content-Type': "application/x-www-form-urlencoded" }
+  #                          )
+  #end
 
   def initialize
     @options = { headers: { 'Content-Type' => 'application/json' } }
@@ -19,10 +19,6 @@ class MangaDexService
 
   def get_manga(id)
     self.class.get("/manga/#{id}", @options)
-  end
-
-  def auth
-    self.class.get("/auth/check", @options)
   end
 
   def get_cover_art(manga)
@@ -38,17 +34,8 @@ class MangaDexService
     end
   end
 
-  #def get_cover_art_url(cover_art_id)
-  #  response = self.class.get("/cover/#{cover_art_id}", @options)
-  #  handle_response(response)
-  #end
-
-  #def get_cover_art(manga_id, cover_art_filename)
-  #  response = "https://uploads.mangadex.org/covers/#{manga_id}/#{cover_art_filename}"
-  #end
-
   def get_chapters(manga_id)
-    response = self.class.get("/chapter?manga=#{manga_id}", @options)
+    response = self.class.get("/manga/#{manga_id}/feed", @options)
     handle_response(response)
   end
 

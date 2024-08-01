@@ -16,12 +16,12 @@
  @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 :root {
-    background-color: rgb(5, 0, 70);
+    background-color: rgb(4, 0, 55);
     color: rgb(255, 255, 255);
     font-family: "Roboto", sans-serif;
     font-weight: 400;
     font-style: normal;
-    margin: 1rem;
+    margin: 1rem 2rem 1rem 1rem;
 }
 
 #Home {
@@ -32,7 +32,7 @@
 
 #Home-manga {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(14vw, 1fr));
     gap: 1rem;
     list-style-type: none;
 }
@@ -43,11 +43,37 @@
     align-items: center;
 }
 
+#Home-manga li p {
+    padding: 0.1rem 0 0 0;
+}
+
 #Home-manga a {
     text-decoration: none;
     color: inherit;
 }
 
 #Manga {
-    
+    margin: 1rem;
+}
+
+#Manga h1 {
+    margin: 0;
+}
+
+#Manga-header {
+    display: flex;
+    flex-direction: row;
+    column-gap: 0.5rem;
+    align-items: center;
+}
+
+.Manga-header-text {
+    text-align: justify;
+    margin: 0.5rem 1.5rem 0.5rem 0.5rem;
+}
+
+#Manga-details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }

@@ -1,27 +1,42 @@
 <div id="Manga">
-  <h1><%= @manga['attributes']['title']['en'] %></h1>
-  <p><%= @manga['attributes']['description']['en'] %></p>
-  <p> Status: <%= @manga['attributes']['status'] %></p>
-  <p> Last Chapter: <%= @manga['attributes']['lastChapter'] %></p>
-  <p> Year: <%= @manga['attributes']['year'] %></p>
-  <p> Content Rating: <%= @manga['attributes']['contentRating'] %></p>
+  <h1> <%= @manga['attributes']['title']['en'] %> </h1>
+  <div id="Manga-header">
+    <div class="Manga-header-img">
+      <p> <%= image_tag @cover_art, alt: @manga['attributes']['title']['en'], size: '200x300' %> </p>
+    </div>
+    <div class="Manga-header-text">
+      <p> <%= trimmed_description(@manga['attributes']['description']['en']) %> </p>
+    </div>
+  </div>
+  <div id="Manga-details">
+    <p> Status: <%= @manga['attributes']['status'] %></p>
+    <p> Last Chapter: 
+      <% if @manga['attributes']['lastChapter'].present? %>
+        <%= @manga['attributes']['lastChapter'] %>
+      <% else %>
+        --
+      <% end %>
+    </p>
+    <p> Year: <%= @manga['attributes']['year'] %></p>
+    <p> Content Rating: <%= @manga['attributes']['contentRating'] %></p>
+  </div>
 
-  <h2>Chapters</h2>
+  <h2> Chapters </h2>
   <ul>
-    <% @chapters.each do |chapter| %>
+    <% @chapters_list.each do |chapter| %>
       <li>
-        <%= chapter['attributes']['title'] %> 
-          <% if chapter['attributes']['volume'].present? &&  %>
-          - Volume: <%= chapter['attributes']['volume'] %>
-          <% end %>
+        Chapter <%= chapter['attributes']['chapter'] %> 
+        <% if chapter['attributes']['volume'].present?  %>
+        - Volume: <%= chapter['attributes']['volume'] %>
+        <% end %>
 
-          <% if chapter['attributes']['chapter'].present? %>
-          - Chapter: <%= chapter['attributes']['chapter'] %>
-          <% end %>
+        <% if chapter['attributes']['updatedAt'].present? %>
+        - updated at: <%= format_date(chapter['attributes']['updatedAt']) %>
+        <% end %>
 
-          <% if chapter['id'] %>
-          - <%= link_to 'View Pages', manga_path(params[:id], chapter_id: chapter['id']) %>
-          <% end %>
+        <% if chapter['id'] %>
+        - <%= link_to 'View Chapter', manga_path(params[:id], chapter_id: chapter['id']) %>
+        <% end %>
       </li>
     <% end %>
 
