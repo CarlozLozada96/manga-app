@@ -1,22 +1,48 @@
-<h1><%= @manga['attributes']['title']['en'] %></h1>
-<p><%= @manga['attributes']['description']['en'] %></p>
+<div id="Manga">
+  <h1><%= @manga['attributes']['title']['en'] %></h1>
+  <p><%= @manga['attributes']['description']['en'] %></p>
+  <p> Status: <%= @manga['attributes']['status'] %></p>
+  <p> Last Chapter: <%= @manga['attributes']['lastChapter'] %></p>
+  <p> Year: <%= @manga['attributes']['year'] %></p>
+  <p> Content Rating: <%= @manga['attributes']['contentRating'] %></p>
 
-<h2>Chapters</h2>
-<ul>
-  <% @chapters.each do |chapter| %>
-    <li>
-      <%= chapter['attributes']['title'] %> 
-      <% if chapter['attributes']['volume'].present? %>
-        - Volume: <%= chapter['attributes']['volume'] %>
-      <% end %>
+  <h2>Chapters</h2>
+  <ul>
+    <% @chapters.each do |chapter| %>
+      <li>
+        <%= chapter['attributes']['title'] %> 
+          <% if chapter['attributes']['volume'].present? &&  %>
+          - Volume: <%= chapter['attributes']['volume'] %>
+          <% end %>
 
-      <% if chapter['attributes']['pages'].present? %>
-        <% chapter['attributes']['pages'].each do |page| %>
-          <img src="<%= page %>" alt="Chapter Image" />
-        <% end %>
-      <% else %>
-        <p>No images available.</p>
+          <% if chapter['attributes']['chapter'].present? %>
+          - Chapter: <%= chapter['attributes']['chapter'] %>
+          <% end %>
+
+          <% if chapter['id'] %>
+          - <%= link_to 'View Pages', manga_path(params[:id], chapter_id: chapter['id']) %>
+          <% end %>
+      </li>
+    <% end %>
+
+  </ul>
+
+  <% if @chapter_data && @chapter_data['attributes'] && @chapter_data['attributes']['pages'] %>
+    <h2>Chapter Pages</h2>
+    <ul>
+      <% @chapter_data['attributes']['pages'].each do |page| %>
+        <li>
+          <%= image_tag(page['attributes']['fileName'], alt: 'Page Image') %>
+        </li>
       <% end %>
-    </li>
+    </ul>
+  <% else %>
+    <% if @chapter_data %>
+      <p>No pages found for this chapter.</p>
+    <% else %>
+      <p>Chapter data is not available.</p>
+    <% end %>
   <% end %>
-</ul>
+
+  <%= link_to "Home", "/manga" %>
+</div>

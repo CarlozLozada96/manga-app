@@ -13,3 +13,41 @@
  *= require_tree .
  *= require_self
  */
+ @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+:root {
+    background-color: rgb(5, 0, 70);
+    color: rgb(255, 255, 255);
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    margin: 1rem;
+}
+
+#Home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#Home-manga {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+    list-style-type: none;
+}
+
+#Home-manga li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#Home-manga a {
+    text-decoration: none;
+    color: inherit;
+}
+
+#Manga {
+    
+}

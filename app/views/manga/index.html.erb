@@ -1,8 +1,12 @@
-<h1>Manga List</h1>
-<ul>
-  <% @manga_list['data'].each do |manga| %>
-    <li>
-      <%= link_to manga['attributes']['title']['en'], manga_path(manga['id']) %>
-    </li>
-  <% end %>
-</ul>
+<div id="Home">
+  <h1> Manga List </h1>
+  <ul id="Home-manga">
+    <% @manga_list['data'].each do |manga| %>
+      <% cover_art_url = @cover_art_urls[manga['id']] %>
+      <li>
+        <%= image_tag cover_art_url, alt: manga['attributes']['title']['en'], size: '100x150' %>
+        <%= link_to manga['attributes']['title']['en'], manga_path(manga['id']) %>
+      </li>
+    <% end %>
+  </ul>
+</div>
