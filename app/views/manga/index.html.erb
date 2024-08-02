@@ -1,8 +1,22 @@
-<h1>Manga List</h1>
-<ul>
-  <% @manga_list['data'].each do |manga| %>
-    <li>
-      <%= link_to manga['attributes']['title']['en'], manga_path(manga['id']) %>
-    </li>
+<div id="Home">
+  <h1>Manga List</h1>
+  <% if user_signed_in? %>
+    <p>Welcome, <%= current_user.email %>!</p>
+    <% if current_user.has_role?(:admin) %>
+      <p>You are an admin.</p>
+      <!-- Additional admin-only content can go here -->
+    <% end %>
+    <%= button_to "Sign Out", destroy_user_session_path, method: :delete %>
+  <% else %>
+    <%= link_to "Login", new_user_session_path %>
+    <%= link_to "Register", new_user_registration_path %>
   <% end %>
-</ul>
+  
+  <ul>
+    <% @manga_list['data'].each do |manga| %>
+      <li>
+        <%= link_to manga['attributes']['title']['en'], manga_path(manga['id']) %>
+      </li>
+    <% end %>
+  </ul>
+</div>
