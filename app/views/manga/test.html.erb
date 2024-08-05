@@ -1,0 +1,13 @@
+<dl>
+  <dd id="first" data-img="https://uploads.mangadex.org/covers/39e55355-dfb4-44e9-bd0b-df1fc3a0e33e/c6933fbb-e69b-492e-b3f9-ec722d7dc8ff.jpg"/>
+  <dd id="first" data-img="https://uploads.mangadex.org/covers/745e53bd-367a-40cf-ae62-caf8e86e0301/0c44b547-99ab-4eac-8ba8-a44a23afb0e1.jpg"/>
+  <dd id="first" data-img="https://uploads.mangadex.org/covers/822c9883-385c-4fd0-9523-16e7789cbeae/05bc4640-7887-411a-be98-2a61f9e41cf6.jpg"/>
+</dl>
+
+<script>
+    dd = document.querySelector('dd#first');
+    ddImg = dd.getAttribute("data-img");
+    img = document.createElement('img');
+    img.src = ddImg;
+    dd.appendChild(img);
+</script>
