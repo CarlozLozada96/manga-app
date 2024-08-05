@@ -2,6 +2,11 @@ require_relative '../service/api_service'
 
 class MangaController < ApplicationController
   def index
+    @manga_list = Manga.all # Assuming Manga model exists, adjust if needed
+    @comments = Comment.all.order(created_at: :desc)
+  end
+  
+  def index
     @manga_list = MangaDexService.new.get_manga_list
   end
 

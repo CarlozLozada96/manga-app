@@ -12,6 +12,13 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "manga#index"
+
+  # Define routes for manga, only index and show actions
   resources :manga, only: [:index, :show]
+
+  # Define routes for comments, allowing only create, edit, update, and destroy actions
+  resources :comments, only: [:create, :edit, :update, :destroy]
+
+  # Custom route for signing out users
   delete '/users/sign_out', to: 'users/sessions#destroy'
 end

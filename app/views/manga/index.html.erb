@@ -20,3 +20,36 @@
     <% end %>
   </ul>
 </div>
+<div id="comments">
+  <h2>Comments</h2>
+  <%= debug @comments %>
+  <% if @comments.present? %>
+    <% @comments.each do |comment| %>
+      <div class="comment">
+        <p><%= comment.content %> - <%= comment.user.email %></p>
+        <% if user_signed_in? && (current_user == comment.user || current_user.has_role?(:admin)) %>
+          <%= link_to 'Edit', edit_comment_path(comment) %> |
+          <%= link_to 'Delete', comment, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>No comments available.</p>
+  <% end %>
+</div>
+
+ <% if user_signed_in? %>
+    <h3>Add a comment:</h3>
+    <%= form_with(model: Comment.new, local: true) do |form| %>
+      <div class="field">
+         <%= form.hidden_field :content %>
+         <%= form.text_area :content %>
+      </div>
+      <div class="actions">
+        <%= form.submit 'Post Comment' %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>You must be <%= link_to 'logged in', new_user_session_path %> to comment.</p>
+  <% end %>
+</div>
