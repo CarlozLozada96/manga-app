@@ -12,11 +12,11 @@
 
     <div class="pagination-controls">
       <% if @page_index > 0 %>
-        <%= link_to 'Previous', manga_chapter_pages_path(id: @manga_id, chapter_id: @chapter_id, page: @page_index - 1), class: 'btn btn-primary' %>
+        <%= link_to 'Previous', manga_chapter_pages_manga_manga_path(id: @manga_id, chapter_id: @chapter_id, page: @page_index - 1), class: 'btn btn-primary' %>
       <% end %>
 
       <% if @page_index < (@chapter_data.keys.max || 0) %>
-        <%= link_to 'Next', manga_chapter_pages_path(id: @manga_id, chapter_id: @chapter_id, page: @page_index + 1), class: 'btn btn-primary' %>
+        <%= link_to 'Next', manga_chapter_pages_manga_manga_path(id: @manga_id, chapter_id: @chapter_id, page: @page_index + 1), class: 'btn btn-primary' %>
       <% end %>
     </div>
 

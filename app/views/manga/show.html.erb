@@ -36,7 +36,7 @@
           <% end %>
 
           <% if chapter['id'] %>
-          - <%= link_to 'View Chapter', manga_chapter_pages_path(params[:id], chapter_id: chapter['id']) %>
+          - <%= link_to 'View Chapter', manga_chapter_pages_manga_manga_path(@manga['id'], chapter_id: chapter['id']) %>
           <% end %>
         </li>
       <% end %>
