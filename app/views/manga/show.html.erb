@@ -1,5 +1,6 @@
 <div id="Manga">
   <h1> <%= @manga['attributes']['title']['en'] %> </h1>
+  
   <div id="Manga-header">
     <div class="Manga-header-img">
       <p> <%= image_tag @cover_art, alt: @manga['attributes']['title']['en'], size: '200x300' %> </p>
@@ -8,6 +9,7 @@
       <p> <%= trimmed_description(@manga['attributes']['description']['en']) %> </p>
     </div>
   </div>
+
   <div id="Manga-details">
     <p> Status: <%= @manga['attributes']['status'] %></p>
     <p> Last Chapter: 
@@ -40,10 +42,8 @@
           <% end %>
         </li>
       <% end %>
-
     </ul>
   </div>
-
 
   <%= link_to "Home", "/manga" %>
 </div>
