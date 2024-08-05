@@ -22,42 +22,28 @@
   </div>
 
   <h2> Chapters </h2>
-  <ul>
-    <% @chapters_list.each do |chapter| %>
-      <li>
-        Chapter <%= chapter['attributes']['chapter'] %> 
-        <% if chapter['attributes']['volume'].present?  %>
-        - Volume: <%= chapter['attributes']['volume'] %>
-        <% end %>
-
-        <% if chapter['attributes']['updatedAt'].present? %>
-        - updated at: <%= format_date(chapter['attributes']['updatedAt']) %>
-        <% end %>
-
-        <% if chapter['id'] %>
-        - <%= link_to 'View Chapter', manga_path(params[:id], chapter_id: chapter['id']) %>
-        <% end %>
-      </li>
-    <% end %>
-
-  </ul>
-
-  <% if @chapter_data && @chapter_data['attributes'] && @chapter_data['attributes']['pages'] %>
-    <h2>Chapter Pages</h2>
+  <div id="Manga-chapters">
     <ul>
-      <% @chapter_data['attributes']['pages'].each do |page| %>
+      <% @chapters_list.each do |chapter| %>
         <li>
-          <%= image_tag(page['attributes']['fileName'], alt: 'Page Image') %>
+          Chapter <%= chapter['attributes']['chapter'] %> 
+          <% if chapter['attributes']['volume'].present?  %>
+          - Volume: <%= chapter['attributes']['volume'] %>
+          <% end %>
+
+          <% if chapter['attributes']['updatedAt'].present? %>
+          - updated at: <%= format_date(chapter['attributes']['updatedAt']) %>
+          <% end %>
+
+          <% if chapter['id'] %>
+          - <%= link_to 'View Chapter', manga_chapter_pages_path(params[:id], chapter_id: chapter['id']) %>
+          <% end %>
         </li>
       <% end %>
+
     </ul>
-  <% else %>
-    <% if @chapter_data %>
-      <p>No pages found for this chapter.</p>
-    <% else %>
-      <p>Chapter data is not available.</p>
-    <% end %>
-  <% end %>
+  </div>
+
 
   <%= link_to "Home", "/manga" %>
 </div>

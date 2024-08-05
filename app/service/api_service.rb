@@ -29,7 +29,7 @@ class MangaDexService
       if cover_art_api['data']
         cover_art_manga = cover_art_api['data']['relationships'].find { |r| r['type'] == 'manga' }
         cover_art_filename = cover_art_api['data']['attributes']['fileName']
-        @cover_art = "https://uploads.mangadex.org/covers/#{cover_art_manga['id']}/#{cover_art_filename}"
+        return "https://uploads.mangadex.org/covers/#{cover_art_manga['id']}/#{cover_art_filename}"
       end
     end
   end
@@ -40,8 +40,14 @@ class MangaDexService
   end
 
   def get_chapter_pages(chapter_id)
-    response = self.class.get("/chapter/#{chapter_id}", @options)
-    handle_response(response)
+    response = self.class.get("/at-home/server/#{chapter_id}", @options)
+    chapter_page_api = handle_response(response)
+    chapter_pages = {}
+    chapter_page_api['chapter']['dataSaver'].each_with_index do |file_name, index|
+      chapter_pages[index] = "https://uploads.mangadex.org/data-saver/#{chapter_page_api['chapter']['hash']}/#{file_name}"
+    end
+    return chapter_pages
+    puts "chapter pages: ", chapter_pages
   end
 
   private

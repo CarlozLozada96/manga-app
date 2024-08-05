@@ -9,6 +9,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  resources :manga, only: [:index, :show]
+  resources :manga, only: [:index, :show] do
+    member do
+      get 'chapter_pages/:chapter_id', to: 'manga#chapter_pages', as: :manga_chapter_pages_manga
+    end
+  end
+
   get "/test" => "manga#test"
 end

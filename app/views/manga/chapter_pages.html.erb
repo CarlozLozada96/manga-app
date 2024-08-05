@@ -1,0 +1,28 @@
+<div id="ChapterPages">
+  <h1> Chapter Pages </h1>
+
+  <% if @chapter_data.present? %>
+    <div class="page-container">
+      <% if @current_page %>
+        <%= image_tag(@current_page, alt: 'Page Image') %>
+      <% else %>
+        <p>No pages available.</p>
+      <% end %>
+    </div>
+
+    <div class="pagination-controls">
+      <% if @page_index > 0 %>
+        <%= link_to 'Previous', manga_chapter_pages_path(id: @manga_id, chapter_id: @chapter_id, page: @page_index - 1), class: 'btn btn-primary' %>
+      <% end %>
+
+      <% if @page_index < (@chapter_data.keys.max || 0) %>
+        <%= link_to 'Next', manga_chapter_pages_path(id: @manga_id, chapter_id: @chapter_id, page: @page_index + 1), class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+
+    <% else %>
+    <p>No pages found for this chapter.</p>
+  <% end %>
+
+  <%= link_to "Back to Manga", manga_path(@manga_id), class: 'btn btn-secondary' %>
+</div>
