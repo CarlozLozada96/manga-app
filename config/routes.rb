@@ -11,10 +11,13 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
-  root "manga#index"
-
-  # Define routes for manga, only index and show actions
-  resources :manga, only: [:index, :show]
+  
+  # root "posts#index"
+  resources :manga, only: [:index, :show] do
+    member do
+      get 'chapter_pages/:chapter_id', to: 'manga#chapter_pages', as: :manga_chapter_pages_manga
+    end
+  end
 
   # Define routes for comments, allowing only create, edit, update, and destroy actions
   resources :comments, only: [:create, :edit, :update, :destroy]
