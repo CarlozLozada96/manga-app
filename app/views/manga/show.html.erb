@@ -66,6 +66,7 @@
  <% if user_signed_in? %>
     <h3>Add a comment:</h3>
     <%= form_with(model: Comment.new, local: true) do |form| %>
+       <%= hidden_field_tag 'manga_id', params[:id] %>
       <div class="field">
          <%= form.hidden_field :content %>
          <%= form.text_area :content %>

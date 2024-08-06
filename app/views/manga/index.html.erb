@@ -1,45 +1,25 @@
 <div id="Home">
-  <div class="auth-links">
-    <% if user_signed_in? %>
-      <p>Welcome, <%= current_user.email %>!</p>
-      <% if current_user.has_role?(:admin) %>
-        <p>You are an admin.</p>
-        <!-- Additional admin-only content can go here -->
-      <% end %>
-      <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: 'auth-button' do %>
-        <p>Sign Out</p>
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="4">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-        </svg>
-      <% end %>
-    <% else %>
-      <%= button_to new_user_session_path, method: :get, class: 'auth-button' do %>
-        <p>Login</p>
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="4">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-        </svg>
-      <% end %>
-      <%= button_to new_user_registration_path, method: :get, class: 'auth-button' do %>
-        <p>Register</p>
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="4">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-        </svg>
-      <% end %>
+  <% if user_signed_in? %>
+    <p>Welcome, <%= current_user.email %>!</p>
+    <% if current_user.has_role?(:admin) %>
+      <p>You are an admin.</p>
+      <!-- Additional admin-only content can go here -->
     <% end %>
-  </div>
+   <%= button_to "Sign Out", destroy_user_session_path, method: :delete %>
+  <% else %>
+    <%= link_to "Login", new_user_session_path %>
+    <%= link_to "Register", new_user_registration_path %>
+  <% end %>
 
-  <h1>Manga List</h1>
+  <h1> Manga List </h1>
   <ul id="Home-manga">
-    <% if @manga_list.present? %>
-      <% @manga_list['data'].each do |manga| %>
-        <% cover_art_url = @cover_art_urls[manga['id']] %>
-        <li>
-          <%= image_tag cover_art_url, alt: manga['attributes']['title']['en'], size: '170x250' %>
-          <p><%= link_to manga['attributes']['title']['en'], manga_path(manga['id']) %></p>
-        </li>
-      <% end %>
-    <% else %>
-      <p>No manga available.</p>
+    <% @manga_list['data'].each do |manga| %>
+      <% cover_art_url = @cover_art_urls[manga['id']] %>
+      <li>
+        <%= image_tag cover_art_url, alt: manga['attributes']['title']['en'], size: '170x250' %>
+        <p> <%= link_to manga['attributes']['title']['en'], manga_path(manga['id']) %> </p>
+      </li>
     <% end %>
   </ul>
 </div>
+
