@@ -10,7 +10,7 @@ module ApplicationHelper
   def trimmed_description(description)
     return "" if description.blank?
     description = description.strip
-    cut_index = description.index("**Links:**")
+    cut_index = description.index("**Links:**") || description.index("**Note:**")
     if cut_index
       description[0...cut_index].strip
     else
