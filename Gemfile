@@ -67,13 +67,11 @@ group :test do
 end
 
 gem "devise", "~> 4.9"
-gem 'rolify'
 
+gem "rolify"
 
 gem "httparty"
 
 gem "mangadex"
 
 gem "dotenv-rails", groups: [:development, :test]
-
-gem "rolify"

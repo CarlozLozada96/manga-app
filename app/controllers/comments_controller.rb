@@ -6,9 +6,9 @@ class CommentsController < ApplicationController
   def create
     @comment = current_user.comments.build(comment_params)
     if @comment.save
-      redirect_to root_path, notice: 'Comment was successfully created.'
+      redirect_to manga_path(params[:chapter_id]), notice: 'Comment was successfully created.'
     else
-      redirect_to root_path, alert: 'Comment could not be created.'
+      redirect_to manga_path(params[:chapter_id]), alert: 'Comment could not be created.'
     end
   end
 
@@ -17,7 +17,7 @@ class CommentsController < ApplicationController
 
   def update
     if @comment.update(comment_params)
-      redirect_to root_path, notice: 'Comment was successfully updated.'
+      redirect_to manga_path(params[:chapter_id]), notice: 'Comment was successfully updated.'
     else
       render :edit
     end
@@ -25,7 +25,7 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment.destroy
-    redirect_to root_path, notice: 'Comment was successfully deleted.'
+    redirect_to manga_path(params[:chapter_id]), notice: 'Comment was successfully deleted.'
   end
 
   private
@@ -36,7 +36,7 @@ class CommentsController < ApplicationController
 
   def authorize_user!
     unless current_user == @comment.user || current_user.has_role?(:admin)
-      redirect_to root_path, alert: 'Not authorized!'
+      redirect_to manga_path(params[:chapter_id]), alert: 'Not authorized!'
     end
   end
 
