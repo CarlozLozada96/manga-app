@@ -1,49 +1,84 @@
 <div id="Manga">
+
+  <%= render 'manga/header' %>
   <h1> <%= @manga['attributes']['title']['en'] %> </h1>
-  <div id="Manga-header">
-    <div class="Manga-header-img">
-      <p> <%= image_tag @cover_art, alt: @manga['attributes']['title']['en'], size: '200x300' %> </p>
+
+  <div id="Manga-info">
+    <div class="Manga-info-img">
+      <p> <%= image_tag @cover_art, alt: @manga['attributes']['title']['en'], size: '250x350' %> </p>
     </div>
-    <div class="Manga-header-text">
+
+    <div class="Manga-info-text">
       <p> <%= trimmed_description(@manga['attributes']['description']['en']) %> </p>
     </div>
-  </div>
-  <div id="Manga-details">
-    <p> Status: <%= @manga['attributes']['status'] %></p>
-    <p> Last Chapter: 
-      <% if @manga['attributes']['lastChapter'].present? %>
-        <%= @manga['attributes']['lastChapter'] %>
-      <% else %>
-        --
-      <% end %>
-    </p>
-    <p> Year: <%= @manga['attributes']['year'] %></p>
-    <p> Content Rating: <%= @manga['attributes']['contentRating'] %></p>
+
+    <div id="Manga-details">
+      <p> Status: <%= @manga['attributes']['status'] %></p>
+      <p> Last Chapter: 
+        <% if @manga['attributes']['lastChapter'].present? %>
+          <%= @manga['attributes']['lastChapter'] %>
+        <% else %>
+          --
+        <% end %>
+      </p>
+      <p> Year: <%= @manga['attributes']['year'] %></p>
+      <p> Content Rating: <%= @manga['attributes']['contentRating'] %></p>
+    </div>
   </div>
 
   <h2> Chapters </h2>
   <div id="Manga-chapters">
-    <ul>
-      <% @chapters_list.each do |chapter| %>
-        <li>
-          Chapter <%= chapter['attributes']['chapter'] %> 
-          <% if chapter['attributes']['volume'].present?  %>
-          - Volume: <%= chapter['attributes']['volume'] %>
-          <% end %>
+    <% @chapters_list.each do |chapter| %>
+      <% chapter_number = chapter['attributes']['chapter'] %>
+      <% updated_at = format_date(chapter['attributes']['updatedAt']) %>
+      <% chapter_id = chapter['id'] %>
 
-          <% if chapter['attributes']['updatedAt'].present? %>
-          - updated at: <%= format_date(chapter['attributes']['updatedAt']) %>
-          <% end %>
-
-          <% if chapter['id'] %>
-          - <%= link_to 'View Chapter', manga_chapter_pages_manga_manga_path(@manga['id'], chapter_id: chapter['id']) %>
-          <% end %>
-        </li>
+      <% if chapter_id %>
+        <%= link_to manga_chapter_pages_manga_manga_path(@manga['id'], chapter_id:  chapter['id']), class: 'chapter-button' do%>
+          <div class="chapter-info">
+            <span class="chapter-number">
+              Chapter <%= chapter_number %>
+            </span>
+            <span class="updated-date">
+              <%= updated_at %>
+            </span>
+          </div>
+        <% end %>
       <% end %>
-
-    </ul>
+    <% end %>
   </div>
 
+  <div id="comments">
+    <h2> Comments </h2>
+    <%= debug @comments %>
+    <% if @comments.present? %>
+      <% @comments.each do |comment| %>
+        <div class="comment">
+          <p><%= comment.content %> - <%= comment.user.email %></p>
+          <% if user_signed_in? && (current_user == comment.user || current_user.has_role?(:admin)) %>
+            <%= link_to 'Edit', edit_comment_path(comment) %> |
+            <%= link_to 'Delete', comment, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <% end %>
+        </div>
+      <% end %>
+    <% else %>
+      <p> No comments available. </p>
+    <% end %>
+  </div>
 
-  <%= link_to "Home", "/manga" %>
+  <% if user_signed_in? %>
+    <h3> Add a comment: </h3>
+    <%= form_with(model: Comment.new, local: true) do |form| %>
+      <div class="field">
+        <%= form.hidden_field :content %>
+        <%= form.text_area :content %>
+      </div>
+      <div class="actions">
+        <%= form.submit 'Post Comment' %>
+      </div>
+    <% end %>
+  <% else %>
+    <p> You must be <%= link_to 'logged in', new_user_session_path %> to comment. </p>
+  <% end %>
+
 </div>

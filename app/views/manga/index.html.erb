@@ -1,18 +1,17 @@
 <div id="Home">
-  <% if user_signed_in? %>
-    <p>Welcome, <%= current_user.email %>!</p>
-    <% if current_user.has_role?(:admin) %>
-      <p>You are an admin.</p>
-      <!-- Additional admin-only content can go here -->
-    <% end %>
-    <%= button_to "Sign Out", destroy_user_session_path, method: :delete %>
-  <% else %>
-    <%= link_to "Login", new_user_session_path %>
-    <%= link_to "Register", new_user_registration_path %>
-  <% end %>
+  <%= render 'manga/header' %>
 
-  <h1> Manga List </h1>
-  <ul id="Home-manga">
+  <!-- Search Bar -->
+  <div id="Home-search">
+    <%= form_with url: manga_index_path, method: :get, local: true, class: 'search-form' do %>
+      <%= text_field_tag :query, params[:query], placeholder: 'Search manga...', class: 'search-input' %>
+      <%= submit_tag 'Search', class: 'search-button' %>
+    <% end %>
+  </div>
+
+  <div id="Home-manga">
+    <h2> Newest release </h2>
+    <ul id="Home-manga-list">
     <% @manga_list['data'].each do |manga| %>
       <% cover_art_url = @cover_art_urls[manga['id']] %>
       <li>
@@ -20,39 +19,6 @@
         <p> <%= link_to manga['attributes']['title']['en'], manga_path(manga['id']) %> </p>
       </li>
     <% end %>
-  </ul>
-</div>
-
-<div id="comments">
-  <h2>Comments</h2>
-  <%= debug @comments %>
-  <% if @comments.present? %>
-    <% @comments.each do |comment| %>
-      <div class="comment">
-        <p><%= comment.content %> - <%= comment.user.email %></p>
-        <% if user_signed_in? && (current_user == comment.user || current_user.has_role?(:admin)) %>
-          <%= link_to 'Edit', edit_comment_path(comment) %> |
-          <%= link_to 'Delete', comment, method: :delete, data: { confirm: 'Are you sure?' } %>
-        <% end %>
-      </div>
-    <% end %>
-  <% else %>
-    <p>No comments available.</p>
-  <% end %>
-</div>
-
- <% if user_signed_in? %>
-    <h3>Add a comment:</h3>
-    <%= form_with(model: Comment.new, local: true) do |form| %>
-      <div class="field">
-         <%= form.hidden_field :content %>
-         <%= form.text_area :content %>
-      </div>
-      <div class="actions">
-        <%= form.submit 'Post Comment' %>
-      </div>
-    <% end %>
-  <% else %>
-    <p>You must be <%= link_to 'logged in', new_user_session_path %> to comment.</p>
-  <% end %>
+    </ul>
+  </div>
 </div>

@@ -14,45 +14,49 @@ class MangaDexService
   end
 
   def get_manga_list
-    self.class.get('/manga', @options)
+    get_request("/manga")
   end
 
   def get_manga(id)
-    self.class.get("/manga/#{id}", @options)
+    get_request("/manga/#{id}")
   end
 
   def get_cover_art(manga)
-    cover_art_id = manga['relationships'].find { |r| r['type'] == 'cover_art' }
-    if cover_art_id
-      response = self.class.get("/cover/#{cover_art_id['id']}", @options)
-      cover_art_api = handle_response(response)
-      if cover_art_api['data']
-        cover_art_manga = cover_art_api['data']['relationships'].find { |r| r['type'] == 'manga' }
-        cover_art_filename = cover_art_api['data']['attributes']['fileName']
-        return "https://uploads.mangadex.org/covers/#{cover_art_manga['id']}/#{cover_art_filename}"
-      end
-    end
+    cover_art_id = manga['relationships'].find { |r| r['type'] == 'cover_art' }&.dig('id')
+    return "No cover art" unless cover_art_id
+    
+    cover_art_api = get_request("/cover/#{cover_art_id}")
+    cover_art_manga = cover_art_api['data']['relationships'].find { |r| r['type'] == 'manga' }
+    cover_art_filename = cover_art_api['data']['attributes']['fileName']
+    return "https://uploads.mangadex.org/covers/#{cover_art_manga['id']}/#{cover_art_filename}"
+  end
+
+  def search_manga(title)
+    get_request("/manga", query: { title: title })
   end
 
   def get_chapters(manga_id)
-    response = self.class.get("/manga/#{manga_id}/feed", @options)
-    handle_response(response)
+    get_request("/manga/#{manga_id}/feed")
   end
 
   def get_chapter_pages(chapter_id)
-    response = self.class.get("/at-home/server/#{chapter_id}", @options)
-    chapter_page_api = handle_response(response)
+    chapter_page_api = get_request("/at-home/server/#{chapter_id}")
     chapter_pages = {}
-    chapter_page_api['chapter']['dataSaver'].each_with_index do |file_name, index|
-      chapter_pages[index] = "https://uploads.mangadex.org/data-saver/#{chapter_page_api['chapter']['hash']}/#{file_name}"
+    Rails.logger.debug("Chapter Pages Api: #{chapter_page_api.inspect} \n")
+    if chapter_page_api != {}
+      chapter_page_api['chapter']['dataSaver'].each_with_index do |file_name, index|
+        chapter_pages[index] = "https://uploads.mangadex.org/data-saver/#{chapter_page_api['chapter']['hash']}/#{file_name}"
+      end
+      return chapter_pages
+    else
+      return "No pages available"
     end
-    return chapter_pages
-    puts "chapter pages: ", chapter_pages
   end
 
   private
 
-  def handle_response(response)
+  def get_request(path, options = {})
+    response = self.class.get(path, @options.merge(options))
     if response.success?
       response.parsed_response
     else   # Log the error or raise an exception
