@@ -45,17 +45,25 @@
       <% end %>
 
     </ul>
+
 <div id="comments">
   <h2>Comments</h2>
-  <%= debug @comments %>
   <% if @comments.present? %>
-    <% @comments.each do |comment| %>
-      <div class="comment">
-        <p><%= comment.content %> - <%= comment.user.email %></p>
-        <% if user_signed_in? && (current_user == comment.user || current_user.has_role?(:admin)) %>
-          <%= link_to 'Edit', edit_comment_path(comment) %> |
-          <%= link_to 'Delete', comment, method: :delete, data: { confirm: 'Are you sure?' } %>
-        <% end %>
+    <% @comments.each_with_index do |comment, index| %>
+      <div class="comment <%= 'hidden' if index >= 5 %>">
+        <div class="comment-header">
+          <p class="comment-user"><%= comment.user.email %></p>
+          <% if user_signed_in? && (current_user == comment.user || current_user.has_role?(:admin)) %>
+            <div class="comment-actions">
+              <%= link_to 'Edit', edit_comment_path(comment), class: 'edit-link' %>
+              <span>|</span>
+              <%= link_to 'Delete', comment, method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete-link' %>
+            </div>
+          <% end %>
+        </div>
+        <div class="comment-content">
+          <p><%= comment.content %></p>
+        </div>
       </div>
     <% end %>
   <% else %>
@@ -63,19 +71,26 @@
   <% end %>
 </div>
 
- <% if user_signed_in? %>
+<% if @comments.size > 10 %>
+  <button id="view-more-btn" class="btn btn-primary">View More</button>
+  <button id="view-less-btn" class="btn btn-secondary" style="display: none;">View Less</button>
+<% end %>
+
+<% if user_signed_in? %>
+  <div class="comment-form">
     <h3>Add a comment:</h3>
     <%= form_with(model: Comment.new, local: true) do |form| %>
-       <%= hidden_field_tag 'manga_id', params[:id] %>
+      <%= hidden_field_tag 'manga_id', params[:id] %>
       <div class="field">
-         <%= form.hidden_field :content %>
-         <%= form.text_area :content %>
+        <%= form.text_area :content, placeholder: "Write your comment here...", class: "comment-textarea" %>
       </div>
       <div class="actions">
-        <%= form.submit 'Post Comment' %>
+        <%= form.submit 'Post Comment', class: "comment-submit" %>
       </div>
     <% end %>
-  <% else %>
+  </div>
+<% else %>
+  <div class="login-message">
     <p>You must be <%= link_to 'logged in', new_user_session_path %> to comment.</p>
-  <% end %>
-</div>
+  </div>
+<% end %>

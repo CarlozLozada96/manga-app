@@ -184,3 +184,131 @@
     width: 15px;
     transition-delay: 0.2s;
   } 
+
+  #comments {
+    margin-top: 2rem;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  #comments h2 {
+    font-size: 1.5rem;
+    color: #ffffff;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .comment {
+    background-color: #444;
+    border-radius: 8px;
+    padding: 10px; /* Reduced padding */
+    margin-bottom: 10px; /* Reduced margin */
+    color: #ffffff;
+  }
+  
+  .comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px; /* Reduced margin */
+  }
+  
+  .comment-user {
+    font-weight: bold;
+    color: #f0ad4e;
+  }
+  
+  .comment-actions {
+    font-size: 0.8rem; /* Reduced font size */
+  }
+  
+  .comment-actions .edit-link, .comment-actions .delete-link {
+    color: #f0ad4e;
+    text-decoration: none;
+    margin-left: 5px; /* Reduced margin */
+  }
+  
+  .comment-actions .delete-link {
+    color: #d9534f;
+  }
+  
+  .comment-actions .edit-link:hover, .comment-actions .delete-link:hover {
+    text-decoration: underline;
+  }
+  
+  .comment-content {
+    font-size: 0.9rem; /* Reduced font size */
+    line-height: 1.2; /* Reduced line height */
+    color: #ddd;
+  }
+  
+  .comment-form {
+    background-color: #333;
+    padding: 15px; /* Reduced padding */
+    border-radius: 8px;
+    margin-top: 15px; /* Reduced margin */
+  }
+  
+  .comment-form h3 {
+    margin-bottom: 10px;
+    color: #f0ad4e;
+  }
+  
+  .comment-textarea {
+    width: 100%;
+    max-width: 100%; /* Ensure it doesn't overflow */
+    padding: 8px; /* Reduced padding */
+    border-radius: 8px;
+    border: none;
+    resize: none;
+    height: 60px; /* Reduced height */
+    background-color: #555;
+    color: #ffffff;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  }
+  
+  .comment-textarea::placeholder {
+    color: #ddd;
+    font-family: 'Roboto', sans-serif; 
+  font-style: italic;
+  }
+  
+  .comment-submit {
+    background-color: #f0ad4e;
+    border: none;
+    border-radius: 8px;
+    color: #ffffff;
+    padding: 8px 15px; /* Reduced padding */
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .comment-submit:hover {
+    background-color: #ec971f;
+  }
+  
+  
+  .no-comments {
+    color: #ccc;
+  }
+  
+  .login-message {
+    text-align: center; /* Center the text horizontally */
+    margin-top: 1rem; /* Add some space above the message */
+    color: #ffffff; /* Change text color if needed */
+  }
+  
+  .login-message a {
+    color: #f0ad4e; /* Color for the link */
+    text-decoration: none; /* Remove underline from the link */
+  }
+  
+  .login-message a:hover {
+    text-decoration: underline; /* Underline the link on hover */
+  }
+
+/*View Buttons*/
+  .hidden {
+    display: none;
+  }
+  

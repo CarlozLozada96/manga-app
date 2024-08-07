@@ -15,7 +15,7 @@ class MangaController < ApplicationController
   end
 
   def show
-    @comments = current_user.comments
+    @comments = current_user.comments if user_signed_in?
     manga_response = @manga_service.get_manga(params[:id])
     @manga = manga_response['data'] if manga_response.success?
     Rails.logger.debug("Manga Data: #{@manga.inspect} \n")
