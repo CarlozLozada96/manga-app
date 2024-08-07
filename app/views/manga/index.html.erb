@@ -1,18 +1,5 @@
 <div id="Home">
-  <div id="Home-header">
-    <%= image_tag 'Logo.png', alt: 'Logo', class: 'Header-logo' %>
-    <% if user_signed_in? %>
-      <div class="Home-header-in">
-        <p> Welcome, <%= current_user.email %>! </p>
-        <%= button_to "Sign Out", destroy_user_session_path, method: :delete %>
-      </div>
-    <% else %>
-      <div class="Home-header-out">
-        <%= link_to "Login", new_user_session_path %>
-        <%= link_to "Register", new_user_registration_path %> 
-      </div>
-    <% end %>
-  </div>
+  <%= render 'manga/header' %>
 
   <!-- Search Bar -->
   <div id="Home-search">

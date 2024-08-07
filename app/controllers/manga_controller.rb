@@ -50,7 +50,7 @@ class MangaController < ApplicationController
     @chapter_data = Rails.cache.fetch("chapter_pages_#{params[:chapter_id]}", expires_in: 5.minutes) do
       @manga_service.get_chapter_pages(params[:chapter_id])
     end || {}
-    Rails.logger.debug("Chapter Pages: #{@chapter_data.inspect} \n")
+    #Rails.logger.debug("Chapter Pages: #{@chapter_data.inspect} \n")
 
     @page_index = params[:page].to_i || 0
     @current_page = @chapter_data[@page_index]

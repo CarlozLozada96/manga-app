@@ -1,12 +1,14 @@
 <div id="Manga">
+
+  <%= render 'manga/header' %>
   <h1> <%= @manga['attributes']['title']['en'] %> </h1>
 
-  <div id="Manga-header">
-    <div class="Manga-header-img">
+  <div id="Manga-info">
+    <div class="Manga-info-img">
       <p> <%= image_tag @cover_art, alt: @manga['attributes']['title']['en'], size: '250x350' %> </p>
     </div>
 
-    <div class="Manga-header-text">
+    <div class="Manga-info-text">
       <p> <%= trimmed_description(@manga['attributes']['description']['en']) %> </p>
     </div>
 
@@ -79,5 +81,4 @@
     <p> You must be <%= link_to 'logged in', new_user_session_path %> to comment. </p>
   <% end %>
 
-  <%= link_to "Home", "/manga" %>
 </div>

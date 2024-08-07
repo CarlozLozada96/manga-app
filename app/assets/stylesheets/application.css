@@ -32,7 +32,7 @@
     align-items: center;
 }
 
-#Home-header {
+#Header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -44,23 +44,21 @@
 }
 
 .Header-logo {
-    /*position: absolute;
-    left: 1rem;*/
     max-width: 200px;
 }
 
-.Home-header-in, .Home-header-out {
+.Header-in, .Header-out {
     display: flex;
     align-items: center;
 }
 
-.Home-header-in {
+.Header-in {
     flex-direction: column;
     gap: 1rem;
     font-size: 0.8rem;
 }
 
-.Home-header-in button {
+.Header-in button {
     position: absolute;
     right: 3.5rem;
     border: none;
@@ -71,26 +69,52 @@
     cursor: pointer;
     transition: all 0.5s;
 }
-
-.Home-header-in button:hover {
+.Header-in button:hover {
     background-color: rgba(255, 0, 255, 1);
     color: rgba(0, 0, 0, 1);
 }
 
-.Home-header-out {
+.Header-out {
     flex-direction: row;
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
-.Home-header-in p, .Home-header-out a {
+.Header-in p, .Header-out a {
     margin: 0;
     color: rgba(255, 255, 255, 1);
 }
 
-.Home-header-out a {
+.Header-out a {
     text-decoration: none;
 }
 
+.Header-out-arrow {
+    position: relative;
+    margin: auto;
+    transition: all 0.2s ease;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+.Header-out-arrow svg {
+    position: relative;
+    top: 0;
+    margin-left: 10px;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke: white;
+    stroke-width: 2;
+    transform: translateX(-5px);
+    transition: all 0.3s ease;
+}
+.Header-out-arrow:hover svg {
+    transform: translateX(0);
+}
+.Header-out-arrow:active {
+    transform: scale(0.95);
+}
+  
 #Home-search {
     display: block;
     margin: 1rem;
@@ -128,14 +152,14 @@
     margin: 0;
 }
 
-#Manga-header {
+#Manga-info {
     display: flex;
     flex-direction: row;
     column-gap: 0.5rem;
     align-items: center;
 }
 
-.Manga-header-text {
+.Manga-info-text {
     text-align: justify;
     margin: 0.5rem 1.5rem 0.5rem 1rem;
     width: 50%;
