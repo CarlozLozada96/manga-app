@@ -1,7 +1,16 @@
-<div id="ChapterPages">
-
+<div id="Chapter-pages">
   <%= render 'manga/header' %>
-  <h1> Chapter Pages </h1>
+  <div id="Chapter-pages-header">  
+    <h2> <%= @manga_title %> - Chapter <%= @chapter_number %> </h2>
+    <span class="Chapter-pages-header-btns">
+      <% if @previous_chapter_id %>
+        <%= link_to 'Previous Chapter', manga_chapter_pages_manga_manga_path(id: @manga_id, chapter_id: @previous_chapter_id, page: 0), class: 'btn btn-prev' %>
+      <% end %>
+      <% if @next_chapter_id %>
+        <%= link_to 'Next Chapter', manga_chapter_pages_manga_manga_path(id: @manga_id, chapter_id: @next_chapter_id, page: 0), class: 'btn btn-next' %>
+      <% end %>
+    </span>
+  </div>
 
   <% if @chapter_data != "No pages available" %>
     <div class="page-container">
@@ -16,7 +25,7 @@
       <% total_pages = (@chapter_data.keys.map(&:to_i).max || 0) %>
 
       <% if @page_index > 0 %>
-        <%= link_to 'Previous', manga_chapter_pages_manga_manga_path(id: @manga_id, chapter_id: @chapter_id, page: @page_index - 1), class: 'btn btn-primary' %>
+        <%= link_to 'Previous', manga_chapter_pages_manga_manga_path(id: @manga_id, chapter_id: @chapter_id, page: @page_index - 1), class: 'btn btn-prev' %>
       <% end %>
 
       <span class="page-info">
@@ -24,7 +33,7 @@
       </span>
 
       <% if @page_index < total_pages - 1 %>
-        <%= link_to 'Next', manga_chapter_pages_manga_manga_path(id: @manga_id, chapter_id: @chapter_id, page: @page_index + 1), class: 'btn btn-primary' %>
+        <%= link_to 'Next', manga_chapter_pages_manga_manga_path(id: @manga_id, chapter_id: @chapter_id, page: @page_index + 1), class: 'btn btn-next' %>
       <% end %>
     </div>
     
@@ -32,5 +41,5 @@
     <p> No pages found for this chapter. </p>
   <% end %>
 
-  <%= link_to "Back to Manga", manga_path(@manga_id), class: 'btn btn-secondary' %>
+  <%= link_to "Back to Manga", manga_path(@manga_id), class: 'btn btn-back' %>
 </div>
