@@ -32,24 +32,88 @@
     align-items: center;
 }
 
-#Home-manga {
+#Home-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin-bottom: 1rem;
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+.Header-logo {
+    /*position: absolute;
+    left: 1rem;*/
+    max-width: 200px;
+}
+
+.Home-header-in, .Home-header-out {
+    display: flex;
+    align-items: center;
+}
+
+.Home-header-in {
+    flex-direction: column;
+    gap: 1rem;
+    font-size: 0.8rem;
+}
+
+.Home-header-in button {
+    position: absolute;
+    right: 3.5rem;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem;
+    background-color: rgb(93, 0, 108);
+    color: rgba(255, 255, 255, 1);
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.Home-header-in button:hover {
+    background-color: rgba(255, 0, 255, 1);
+    color: rgba(0, 0, 0, 1);
+}
+
+.Home-header-out {
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.Home-header-in p, .Home-header-out a {
+    margin: 0;
+    color: rgba(255, 255, 255, 1);
+}
+
+.Home-header-out a {
+    text-decoration: none;
+}
+
+#Home-search {
+    display: block;
+    margin: 1rem;
+}
+
+#Home-manga-list {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 1rem;
     list-style-type: none;
 }
 
-#Home-manga li {
+#Home-manga-list li {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#Home-manga li p {
+#Home-manga-list li p {
     padding: 0.1rem 0 0 0;
 }
 
-#Home-manga a {
+#Home-manga-list a {
     text-decoration: none;
     color: inherit;
 }
@@ -92,19 +156,19 @@
 .chapter-button {
     display: block;
     width: 10rem;
-    background-color: #003264;
-    border: 1px solid #ffffff;
+    background-color: rgba(0, 50, 100, 1);
+    border: 1px solid rgba(255, 255, 255, 1);
     border-radius: 4px;
     margin-bottom: 1rem;
     padding: 1rem;
     text-decoration: none;
-    color: #ffffff;
+    color: rgba(255, 255, 255, 1);
     transition: background-color 0.3s, color 0.3s;
 }
 
 .chapter-button:hover {
-    background-color: #5ac2ff;
-    color: #000;
+    background-color: rgba(90, 195, 255);
+    color: rgba(0, 0, 0);
 }
   
 .chapter-info {
@@ -119,7 +183,7 @@
   
 .updated-date {
     font-size: 0.8rem;
-    color: #85909a;
+    color: rgba(133, 144, 154, 1);
 }
 
 /*  Manga Chapter Pages  */
@@ -137,43 +201,43 @@
 .btn {
     padding: 10px 20px;
     margin: 0 5px;
-    color: #fff;
-    background-color: #007bff;
+    color: rgba(255, 255, 255, 1);
+    background-color: rgba(0, 123, 255, 1);
     border: none;
     border-radius: 5px;
     text-decoration: none;
 }
   
 .btn-primary {
-    background-color: #007bff;
+    background-color: rgba(0, 123, 255, 1);
 }
   
 .btn-secondary {
-    background-color: #6c757d;
+    background-color: rgba(108, 117, 125, 1);
 }
 
 /*  Responsiveness   */
 
 @media (max-width: 1200px) {
-    #Home-manga {
+    #Home-manga-list {
         grid-template-columns: repeat(4, 1fr);
     }
 }
 
 @media (max-width: 900px) {
-    #Home-manga {
+    #Home-manga-list {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
 @media (max-width: 600px) {
-    #Home-manga {
+    #Home-manga-list {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 400px) {
-    #Home-manga {
+    #Home-manga-list {
         grid-template-columns: 1fr;
     }
 }

@@ -1,26 +1,30 @@
 <div id="Home">
-  <% if user_signed_in? %>
-    <p> Welcome, <%= current_user.email %>! </p>
-    <% if current_user.has_role?(:admin) %>
-      <p> You are an admin. </p>
-      <!-- Additional admin-only content can go here -->
+  <div id="Home-header">
+    <%= image_tag 'Logo.png', alt: 'Logo', class: 'Header-logo' %>
+    <% if user_signed_in? %>
+      <div class="Home-header-in">
+        <p> Welcome, <%= current_user.email %>! </p>
+        <%= button_to "Sign Out", destroy_user_session_path, method: :delete %>
+      </div>
+    <% else %>
+      <div class="Home-header-out">
+        <%= link_to "Login", new_user_session_path %>
+        <%= link_to "Register", new_user_registration_path %> 
+      </div>
     <% end %>
-    <%= button_to "Sign Out", destroy_user_session_path, method: :delete %>
-  <% else %>
-    <%= link_to "Login", new_user_session_path %>
-    <%= link_to "Register", new_user_registration_path %>
-  <% end %>
+  </div>
 
-  <h1> Manga Heart </h1>
+  <!-- Search Bar -->
+  <div id="Home-search">
+    <%= form_with url: manga_index_path, method: :get, local: true, class: 'search-form' do %>
+      <%= text_field_tag :query, params[:query], placeholder: 'Search manga...', class: 'search-input' %>
+      <%= submit_tag 'Search', class: 'search-button' %>
+    <% end %>
+  </div>
 
-  <!-- Search Form -->
-  <%= form_with url: manga_index_path, method: :get, local: true, class: 'search-form' do %>
-    <%= text_field_tag :query, params[:query], placeholder: 'Search manga...', class: 'search-input' %>
-    <%= submit_tag 'Search', class: 'search-button' %>
-  <% end %>
-
-  <h2> Newest release </h2>
-  <ul id="Home-manga">
+  <div id="Home-manga">
+    <h2> Newest release </h2>
+    <ul id="Home-manga-list">
     <% @manga_list['data'].each do |manga| %>
       <% cover_art_url = @cover_art_urls[manga['id']] %>
       <li>
@@ -28,5 +32,6 @@
         <p> <%= link_to manga['attributes']['title']['en'], manga_path(manga['id']) %> </p>
       </li>
     <% end %>
-  </ul>
+    </ul>
+  </div>
 </div>
