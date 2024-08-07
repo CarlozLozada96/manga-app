@@ -80,7 +80,7 @@
   <div class="comment-form">
     <h3>Add a comment:</h3>
     <%= form_with(model: Comment.new, local: true) do |form| %>
-      <%= hidden_field_tag 'manga_id', params[:id] %>
+      <%= hidden_field_tag 'manga_ref', params[:id] %>
       <div class="field">
         <%= form.text_area :content, placeholder: "Write your comment here...", class: "comment-textarea" %>
       </div>
