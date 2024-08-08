@@ -16,3 +16,9 @@ admin2 = User.find_or_create_by(email: 'admintrisha@manga.com') do |user|
   user.password_confirmation = 'password'
   user.add_role :admin
 end
+
+reader1 = User.find_or_create_by(email: 'user1@email.com') do |user|
+  user.password = 'password'
+  user.password_confirmation = 'password'
+  user.add_role :user
+end
