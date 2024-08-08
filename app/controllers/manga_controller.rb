@@ -31,6 +31,9 @@ class MangaController < ApplicationController
 
     @cover_art = @manga ? @manga_service.get_cover_art(@manga) : nil
     #Rails.logger.debug("Cover art: #{@cover_art.inspect} \n")
+
+    @comments = Comment.where(manga_ref: params[:id])
+    Rails.logger.debug("Comments: #{@comments.inspect} \n")
   end
 
   def chapter_pages
