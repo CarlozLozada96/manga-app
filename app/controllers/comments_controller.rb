@@ -47,8 +47,4 @@ class CommentsController < ApplicationController
       redirect_to manga_path(params[:manga_ref]), alert: 'Not authorized!'
     end
   end
-
-  def comment_params
-    params.require(:comment).permit(:content)
-  end
 end
