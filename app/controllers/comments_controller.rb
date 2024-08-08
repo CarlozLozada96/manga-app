@@ -1,7 +1,8 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :edit, :update, :destroy]
   before_action :set_comment, only: [:edit, :update, :destroy]
-  before_action :authorize_user!, only: [:edit, :update, :destroy]
+  before_action :authorize_user!, only: [:edit, :update]
+  before_action :authorize_admin!, only: [:destroy]
 
   def create
     @comment = current_user.comments.build(comment_params)
@@ -17,7 +18,7 @@ class CommentsController < ApplicationController
   end
 
   def update
-    if @comment.update(comment_params)
+    if @comment.update(comment_params.merge(edited_at: Time.current))
       redirect_to manga_path(params[:manga_ref]), notice: 'Comment was successfully updated.'
     else
       render :edit
@@ -36,7 +37,13 @@ class CommentsController < ApplicationController
   end
 
   def authorize_user!
-    unless current_user == @comment.user || current_user.has_role?(:admin)
+    unless current_user == @comment.user
+      redirect_to manga_path(params[:manga_ref]), alert: 'Not authorized!'
+    end
+  end
+
+  def authorize_admin!
+    unless current_user.has_role?(:admin)
       redirect_to manga_path(params[:manga_ref]), alert: 'Not authorized!'
     end
   end

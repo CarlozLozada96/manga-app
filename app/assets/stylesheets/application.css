@@ -312,3 +312,9 @@
     display: none;
   }
   
+  .edited {
+    font-style: italic;
+    color: gray;
+    margin-left: 5px;
+  }
+  

@@ -53,16 +53,23 @@
       <div class="comment <%= 'hidden' if index >= 5 %>">
         <div class="comment-header">
           <p class="comment-user"><%= comment.user.email %></p>
-          <% if user_signed_in? && (current_user == comment.user || current_user.has_role?(:admin)) %>
+          <% if user_signed_in? %>
             <div class="comment-actions">
-              <%= link_to 'Edit', edit_comment_path(comment), class: 'edit-link' %>
-              <span>|</span>
-              <%= link_to 'Delete', comment,  turbo_method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete-link' %>
+              <% if current_user == comment.user %>
+                <%= link_to 'Edit', edit_comment_path(comment), class: 'edit-link' %>
+                <span>|</span>
+              <% end %>
+              <% if current_user.has_role?(:admin) || current_user == comment.user %>
+                <%= link_to 'Delete', comment_path(comment), method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete-link' %>
+              <% end %>
             </div>
           <% end %>
         </div>
         <div class="comment-content">
           <p><%= comment.content %></p>
+          <% if comment.edited_at.present? %>
+            <small class="edited">(edited)</small>
+          <% end %>
         </div>
       </div>
     <% end %>
@@ -94,3 +101,4 @@
     <p>You must be <%= link_to 'logged in', new_user_session_path %> to comment.</p>
   </div>
 <% end %>
+
