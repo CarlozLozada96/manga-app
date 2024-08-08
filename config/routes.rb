@@ -11,8 +11,8 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
-  
-  # root "posts#index"
+  root "manga#index"
+
   resources :manga, only: [:index, :show] do
     member do
       get 'chapter_pages/:chapter_id', to: 'manga#chapter_pages', as: :manga_chapter_pages_manga
@@ -27,6 +27,6 @@ Rails.application.routes.draw do
   delete '/users/sign_out', to: 'users/sessions#destroy'
   
 
-  get "/test" => "manga#test"
+  #get "/test" => "manga#test"
 
 end

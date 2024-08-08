@@ -1,0 +1,29 @@
+<div id="Header">
+  <%= link_to root_path do %>
+    <%= image_tag 'Logo.png', alt: 'Logo', class: 'Header-logo' %>
+  <% end %>
+  <% if user_signed_in? %>
+    <div class="Header-in">
+      <p> Welcome, <%= current_user.email %>! </p>
+      <%= button_to "Sign Out", destroy_user_session_path, method: :delete %>
+    </div>
+  <% else %>
+    <div class="Header-out">
+      <span class="Header-out-arrow">
+        <%= link_to "Login", new_user_session_path %>
+        <svg width="15px" height="10px" viewBox="0 0 13 10">
+          <path d="M1,5 L11,5"></path>
+          <polyline points="8 1 12 5 8 9"></polyline>
+        </svg>
+      </span>
+
+      <span class="Header-out-arrow">
+        <%= link_to "Register", new_user_registration_path %> 
+        <svg width="15px" height="10px" viewBox="0 0 13 10">
+          <path d="M1,5 L11,5"></path>
+          <polyline points="8 1 12 5 8 9"></polyline>
+        </svg>
+      </span>
+    </div>
+  <% end %>
+</div>
