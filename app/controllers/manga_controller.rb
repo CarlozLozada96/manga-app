@@ -11,7 +11,6 @@ class MangaController < ApplicationController
         @manga_service.get_manga_list
       end
     end
-    #Rails.logger.debug("Manga list: #{@manga_list.inspect} \n")
 
     @cover_art_urls = Rails.cache.fetch("cover_art_urls_#{params[:query]}", expires_in: 5.minutes) do
       fetch_cover_art_urls(@manga_list['data'])
@@ -23,7 +22,7 @@ class MangaController < ApplicationController
     @manga = Rails.cache.fetch("manga_#{params[:id]}", expires_in: 5.minutes) do
       @manga_service.get_manga(params[:id])['data']
     end
-    Rails.logger.debug("Manga Data: #{@manga.inspect} \n")
+    #Rails.logger.debug("Manga Data: #{@manga.inspect} \n")
 
     chapters_list_response = Rails.cache.fetch("chapters_list_#{params[:id]}", expires_in: 5.minutes) do
       @chapters_list = fetch_sorted_chapters(@manga_service.get_chapters(params[:id])['data']).reverse
