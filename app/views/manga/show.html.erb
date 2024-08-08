@@ -57,7 +57,7 @@
             <div class="comment-actions">
               <%= link_to 'Edit', edit_comment_path(comment), class: 'edit-link' %>
               <span>|</span>
-              <%= link_to 'Delete', comment, method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete-link' %>
+              <%= link_to 'Delete', comment,  turbo_method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete-link' %>
             </div>
           <% end %>
         </div>
@@ -71,7 +71,7 @@
   <% end %>
 </div>
 
-<% if @comments.size > 10 %>
+<% if @comments.present? && @comments.size > 5 %>
   <button id="view-more-btn" class="btn btn-primary">View More</button>
   <button id="view-less-btn" class="btn btn-secondary" style="display: none;">View Less</button>
 <% end %>
