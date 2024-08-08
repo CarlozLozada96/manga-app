@@ -305,7 +305,7 @@
 }
 
 .comment-actions .delete-link {
-    color: #444;
+    color: rgba(255, 0, 255, 1);
 }
 
 .comment-actions .edit-link:hover, .comment-actions .delete-link:hover {
@@ -373,7 +373,7 @@
 }
 
 .login-message a {
-    color: #f0ad4e;
+    color: rgba(255, 0, 255, 1);
     text-decoration: none;
 }
 
