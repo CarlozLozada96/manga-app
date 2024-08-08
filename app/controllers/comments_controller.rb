@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :edit, :update, :destroy]
   before_action :set_comment, only: [:edit, :update, :destroy]
   before_action :authorize_user!, only: [:edit, :update]
-  before_action :authorize_admin!, only: [:destroy]
+  before_action :authorize_owner_or_admin!, only: [:destroy]
 
   def create
     @comment = current_user.comments.build(comment_params)
@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment.destroy
-    redirect_to manga_path(params[:manga_ref]), notice: 'Comment was successfully deleted.'
+    redirect_to manga_path(@comment.manga_ref), notice: 'Comment was successfully deleted.'
   end
 
   private
@@ -38,13 +38,13 @@ class CommentsController < ApplicationController
 
   def authorize_user!
     unless current_user == @comment.user
-      redirect_to manga_path(params[:manga_ref]), alert: 'Not authorized!'
+      redirect_to manga_path(@comment.manga_ref), alert: 'Not authorized!'
     end
   end
 
-  def authorize_admin!
-    unless current_user.has_role?(:admin)
-      redirect_to manga_path(params[:manga_ref]), alert: 'Not authorized!'
+  def authorize_owner_or_admin!
+    unless current_user == @comment.user || current_user.has_role?(:admin)
+      redirect_to manga_path(@comment.manga_ref), alert: 'Not authorized!'
     end
   end
 

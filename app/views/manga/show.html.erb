@@ -62,7 +62,7 @@
                   <span>|</span>
                 <% end %>
                 <% if current_user.has_role?(:admin) || current_user == comment.user %>
-                  <%= link_to 'Delete', comment_path(comment), method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete-link' %>
+                  <%= link_to 'Delete', comment_path(comment), data: { confirm: 'Are you sure?', "turbo-method": :delete }, class: 'delete-link' %>
                 <% end %>
               </div>
             <% end %>
