@@ -75,3 +75,5 @@ gem "httparty"
 gem "mangadex"
 
 gem "dotenv-rails", groups: [:development, :test]
+
+gem 'pg', '~> 1.1'
