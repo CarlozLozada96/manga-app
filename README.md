@@ -10,7 +10,7 @@
 # Manga Heart
 This is a Ruby on Rails application for managing manga collections, user comments, and admin functionalities. The app includes features like user authentication, role-based access control, comment editing, and more. As we want to provide you a better manga reading experience from THE HEART.
 
-#Table of Contents
+# Table of Contents
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Usage](#usage)
