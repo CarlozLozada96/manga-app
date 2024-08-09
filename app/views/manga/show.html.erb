@@ -47,65 +47,66 @@
     <% end %>
   </div>
 
-<div id="comments">
-  <h2>Comments</h2>
-  <% if @comments.present? %>
-    <% @comments.each_with_index do |comment, index| %>
-      <div class="comment <%= 'hidden' if index >= 5 %>">
-        <div class="comment-header">
-          <p class="comment-user"><%= comment.user.email %></p>
-          <% if user_signed_in? %>
-            <div class="comment-actions">
-              <% if current_user == comment.user %>
-                <%= link_to 'Edit', edit_comment_path(comment), class: 'edit-link' %>
-                <span>|</span>
-              <% end %>
-              <% if current_user.has_role?(:admin) || current_user == comment.user %>
-                <%= link_to 'Delete', comment_path(comment), data: { confirm: 'Are you sure?', "turbo-method": :delete }, class: 'delete-link' %>
-              <% end %>
-              <% if current_user.has_role?(:admin) %>
-                <% if comment.user.banned? %>
-                  <%= link_to 'Unban User', unban_admin_user_path(comment.user), data: { confirm: 'Are you sure you want to unban this user?', "turbo-method": :patch }, class: 'btn btn-success' %>
-                <% else %>
-                  <%= link_to 'Ban User', ban_admin_user_path(comment.user), data: { confirm: 'Are you sure you want to ban this user?', "turbo-method": :patch }, class: 'btn btn-danger' %>
+<div id="Comments-form">
+  <div id="comments">
+    <h2>Comments</h2>
+    <% if @comments.present? %>
+      <% @comments.each_with_index do |comment, index| %>
+        <div class="comment <%= 'hidden' if index >= 5 %>">
+          <div class="comment-header">
+            <p class="comment-user"><%= comment.user.email %></p>
+            <% if user_signed_in? %>
+              <div class="comment-actions">
+                <% if current_user == comment.user %>
+                  <%= link_to 'Edit', edit_comment_path(comment), class: 'edit-link' %>
+                  <span>|</span>
                 <% end %>
-              <% end %>
-            </div>
-          <% end %>
+                <% if current_user.has_role?(:admin) || current_user == comment.user %>
+                  <%= link_to 'Delete', comment_path(comment), data: { confirm: 'Are you sure?', "turbo-method": :delete }, class: 'delete-link' %>
+                <% end %>
+                <% if current_user.has_role?(:admin) %>
+                  <% if comment.user.banned? %>
+                    <%= link_to 'Unban User', unban_admin_user_path(comment.user), data: { confirm: 'Are you sure you want to unban this user?', "turbo-method": :patch }, class: 'btn btn-success' %>
+                  <% else %>
+                    <%= link_to 'Ban User', ban_admin_user_path(comment.user), data: { confirm: 'Are you sure you want to ban this user?', "turbo-method": :patch }, class: 'btn btn-danger' %>
+                  <% end %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+          <div class="comment-content">
+            <p><%= comment.content %></p>
+            <% if comment.edited_at.present? %>
+              <small class="edited">(edited)</small>
+            <% end %>
+          </div>
         </div>
-        <div class="comment-content">
-          <p><%= comment.content %></p>
-          <% if comment.edited_at.present? %>
-            <small class="edited">(edited)</small>
-          <% end %>
-        </div>
-      </div>
+      <% end %>
+    <% else %>
+      <p>No comments available.</p>
     <% end %>
-  <% else %>
-    <p>No comments available.</p>
+
+  <% if @comments.present? && @comments.size > 5 %>
+    <button id="view-more-btn" class="btn btn-primary">View More</button>
+    <button id="view-less-btn" class="btn btn-secondary" style="display: none;">View Less</button>
   <% end %>
-</div>
 
-<% if @comments.present? && @comments.size > 5 %>
-  <button id="view-more-btn" class="btn btn-primary">View More</button>
-  <button id="view-less-btn" class="btn btn-secondary" style="display: none;">View Less</button>
-<% end %>
-
-<% if user_signed_in? %>
-  <div class="comment-form">
-    <h3>Add a comment:</h3>
-    <%= form_with(model: Comment.new, local: true) do |form| %>
-      <%= hidden_field_tag 'manga_ref', params[:id] %>
-      <div class="field">
-        <%= form.text_area :content, placeholder: "Write your comment here...", class: "comment-textarea" %>
-      </div>
-      <div class="actions">
-        <%= form.submit 'Post Comment', class: "comment-submit" %>
-      </div>
-    <% end %>
-  </div>
-<% else %>
-  <div class="login-message">
-    <p>You must be <%= link_to 'logged in', new_user_session_path %> to comment.</p>
+  <% if user_signed_in? %>
+    <div class="comment-form">
+      <h3>Add a comment:</h3>
+      <%= form_with(model: Comment.new, local: true) do |form| %>
+        <%= hidden_field_tag 'manga_ref', params[:id] %>
+        <div class="field">
+          <%= form.text_area :content, placeholder: "Write your comment here...", class: "comment-textarea" %>
+        </div>
+        <div class="actions">
+          <%= form.submit 'Post Comment', class: "comment-submit" %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="login-message">
+      <p>You must be <%= link_to 'logged in', new_user_session_path %> to comment.</p>
+    </div>
   </div>
 <% end %>

@@ -1,15 +1,29 @@
-<h1>Edit Comment</h1>
+<div id="Edit">
+  <%= render 'manga/header' %>
+  <h1> Edit Comment </h1>
 
-<%= form_for @comment do |f| %> 
-  <div class="field">
-    <%= f.text_area :content %>
-  </div>
-  
-  <%= hidden_field_tag :manga_ref, @comment.manga_ref %>
-  
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+  <%= form_for @comment do |f| %>
+    <% if @comment.errors.any? %>
+      <div id="edit-error">
+        <h2> <%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved: </h2>
+        <ul>
+          <% @comment.errors.full_messages.each do |message| %>
+            <li> <%= message %> </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-<%= link_to 'Back', manga_path(@comment.manga_ref) %>
+    <div class="field">
+      <%= f.label :content, class: 'edit-form-label' %><br>
+      <%= f.text_area :content, class: 'edit-form-content', rows: 5 %>
+    </div>
+
+    <%= hidden_field_tag :manga_ref, @comment.manga_ref %>
+
+    <div class="actions">
+      <%= link_to 'Back', manga_path(@comment.manga_ref), class: 'btn edit-btn-back' %>
+      <%= f.submit 'Update Comment', class: 'btn edit-btn-submit' %>
+    </div>
+  <% end %>
+</div>
