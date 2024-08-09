@@ -1,7 +1,6 @@
 <div id="Home">
   <%= render 'manga/header' %>
 
-  <!-- Search Bar -->
   <div id="Home-search">
     <%= form_with url: manga_index_path, method: :get, local: true, class: 'search-form' do %>
       <%= text_field_tag :query, params[:query], placeholder: 'Search manga...', class: 'search-input' %>
