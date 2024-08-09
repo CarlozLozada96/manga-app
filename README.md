@@ -1,4 +1,5 @@
-# Manga Project
+![Manga Heart](https://media.discordapp.net/attachments/1055486048953696408/1271539536492494868/image.png?ex=66b7b4f9&is=66b66379&hm=cd1d8a5c9bb6d3a0f37ae9247397dc764761ec3a5db4888be76cc638d42c55fe&=&format=webp&quality=lossless&width=1399&height=676)
+# Manga Heart
 This is a Ruby on Rails application for managing manga collections, user comments, and admin functionalities. The app includes features like user authentication, role-based access control, comment editing, and more.
 
 #Table of Contents
