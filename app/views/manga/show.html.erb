@@ -65,11 +65,6 @@
                   <%= link_to 'Delete', comment_path(comment), data: { confirm: 'Are you sure?', "turbo-method": :delete }, class: 'delete-link' %>
                 <% end %>
                 <% if current_user.has_role?(:admin) %>
-                  <% if comment.user.banned? %>
-                    <%= link_to 'Unban User', unban_admin_user_path(comment.user), data: { confirm: 'Are you sure you want to unban this user?', "turbo-method": :patch }, class: 'btn btn-success' %>
-                  <% else %>
-                    <%= link_to 'Ban User', ban_admin_user_path(comment.user), data: { confirm: 'Are you sure you want to ban this user?', "turbo-method": :patch }, class: 'btn btn-danger' %>
-                  <% end %>
                 <% end %>
               </div>
             <% end %>
