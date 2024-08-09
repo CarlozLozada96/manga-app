@@ -18,6 +18,10 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= ENV.fetch("DB_USERNAME") {"mangaheart"} %>
+  password: <%= ENV.fetch("DB_PASSWORD") {"QcNDi8E0q10MaIwGj5K6PSleucvsggdb"} %>
+  host: <%= ENV.fetch("DB_HOST") {"localhost"} %>
+  port: <%= ENV.fetch("DB_PORT") {5432} %>
 
 development:
   <<: *default
@@ -79,6 +83,7 @@ test:
 #
 production:
   <<: *default
-  database: manga_app_production
-  username: manga_app
-  password: <%= ENV["MANGA_APP_DATABASE_PASSWORD"] %>
+  database: <%= ENV.fetch("PGDATABASE") {"mangaheart_pqsl"} %>
+  host: <%= ENV.fetch("PGHOST") {"dpg-cqr1133v2p9s73bco0fg-a"} %>
+  username: <%= ENV.fetch("PGUSERNAME") {"mangaheart_pqsl_user"} %>
+  password: <%= ENV.fetch("PGPASSWORD") {"QcNDi8E0q10MaIwGj5K6PSleucvsggdb"} %>
