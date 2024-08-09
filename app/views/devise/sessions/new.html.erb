@@ -1,0 +1,22 @@
+<div id="Login">  
+  <%= image_tag 'Logo.png', alt: 'Logo', class: 'Header-logo' %>
+  <h2> Sign In to Your Account </h2>
+
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { method: :post }) do |f| %>
+    <div class="login-email">
+      <%= f.label :email, class: 'login-email-label' %>
+      <%= f.email_field :email, autofocus: true, class: 'login-email-field' %>
+    </div>
+
+    <div class="login-password">
+      <%= f.label :password, class: 'login-password-label' %>
+      <%= f.password_field :password, class: 'login-password-field' %>
+    </div>
+
+    <div class="login-btn">
+      <%= f.submit "Sign In", class: 'btn' %>
+    </div>
+  <% end %>
+
+  <%= render "devise/shared/links" %>
+</div>

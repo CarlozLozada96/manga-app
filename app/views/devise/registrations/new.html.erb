@@ -1,0 +1,32 @@
+<div id="Signup"> 
+  <%= image_tag 'Logo.png', alt: 'Logo', class: 'Header-logo' %>
+  <h2> Sign up </h2>
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <div class="signup-email">
+      <%= f.label :email, class: 'signup-email-label'%><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'signup-email-field' %>
+    </div>
+
+    <div class="signup-password">
+      <%= f.label :password, class: 'signup-password-label' %>
+      <% if @minimum_password_length %>
+      <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <% end %><br />
+      <%= f.password_field :password, autocomplete: "new-password", class: 'signup-password-field' %>
+    </div>
+
+    <div class="signup-password-confirm">
+      <%= f.label :password_confirmation, class: 'signup-password-confirm-label' %><br />
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'signup-password-confirm-field' %><br />
+    </div>
+
+    <div class="signup-btn">
+      <%= f.submit "Sign up", class: 'btn' %>
+    </div>
+  <% end %>
+
+  <%= render "devise/shared/links" %>
+</div>
