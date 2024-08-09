@@ -1,0 +1,13 @@
+<h1><%= @user.email %> Profile</h1>
+
+<p>Role: <%= @user.roles.first.name %></p>
+<p>Status: <%= @user.banned? ? 'Banned' : 'Active' %></p>
+
+<% if current_user.has_role?(:admin) %>
+  <% if @user.banned? %>
+    <%= button_to 'Unban User', unban_admin_user_path(@user), method: :patch %>
+  <% else %>
+    <%= button_to 'Ban User (24 hours)', ban_admin_user_path(@user, duration: 24), method: :patch %>
+    <%= button_to 'Ban User Permanently', ban_admin_user_path(@user), method: :patch %>
+  <% end %>
+<% end %>

@@ -22,11 +22,19 @@ Rails.application.routes.draw do
   # Define routes for comments, allowing only create, edit, update, and destroy actions
   resources :comments, only: [:create, :edit, :update, :destroy]
 
-
   # Custom route for signing out users
   delete '/users/sign_out', to: 'users/sessions#destroy'
   
+  # Admin namespace for managing users
+  namespace :admin do
+    resources :users, only: [:index] do
+      member do
+        patch :ban
+        patch :unban
+      end
+    end
+  end
 
-  #get "/test" => "manga#test"
-
+  # Example custom route
+  # get "/test" => "manga#test"
 end
