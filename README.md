@@ -8,7 +8,9 @@
 ![Manga Heart 4](https://media.discordapp.net/attachments/1055486048953696408/1271540860932198451/image.png?ex=66b7b635&is=66b664b5&hm=8bb0aa12342066489645218237f0f23c4f655df891bf8ed4ecaf90d3c598954e&=&format=webp&quality=lossless&width=1421&height=676)
 
 # Manga Heart
-This is a Ruby on Rails application for managing manga collections, user comments, and admin functionalities. The app includes features like user authentication, role-based access control, comment editing, and more. As we want to provide you a better manga reading experience from THE HEART.
+This is a Ruby on Rails application for managing manga collections, user comments, and admin functionalities. The app includes features like user authentication, role-based access control, comment editing, and more, with the goal of providing you a better manga reading experience from THE HEART.
+
+Note: This is a non-profit application that makes use of the [MangaDex API] (https://api.mangadex.org), so there are limitation in viewing the image during live deployment, but otherwise there are no problems in viewing the images on the local machine.
 
 # Table of Contents
 - [Installation](#installation)
@@ -32,10 +34,10 @@ This is a Ruby on Rails application for managing manga collections, user comment
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/manga_project.git
+git clone https://github.com/CarlozLozada96/manga-app.git
 ```
 ```bash
-cd manga_project
+cd manga_app
 ```
 2. Install dependencies:
 ```bash
@@ -62,12 +64,11 @@ rails server
 - User Registration and Login: Users can sign up and log in to access the application.
 - Admin Access: Admin users have additional privileges like managing manga and users.
 - Commenting: Users can leave comments on manga entries, with the option to edit them.
+- Viewing chapters: Users can view chapter pages either as a single page view or a multiple page veiw with pagination.
 
 # Roles
 - Admin: Full access to all features, including user and manga management.
-- Default Admins:
-- Email: admincarloz@manga.com, Password: mangas
-- Email: admintrisha@manga.com, Password: password
+- Admins: Can view and comment on manga entries, and can also ban users.
 - User: Can view and comment on manga entries.
 
 # Comment Management
