@@ -1,4 +1,4 @@
-require_relative '../service/api_service'
+require_relative '../service/manga_dex_service'
 
 class MangaController < ApplicationController
   before_action :set_manga_service
