@@ -5,7 +5,7 @@
     <span class="Chapter-pages-header-btns">
       <p class="Chapter-pages-header-btns-pages">
         <% if params[:view] == 'all' %>
-          <%= link_to 'View Single Pages', manga_chapter_pages_manga_manga_path(id: @manga_id, chapter_id: @chapter_id, view: 'single'), class: 'btn btn-single' %>
+          <%= link_to 'View Single Pages', manga_chapter_pages_manga_manga_path(id: @manga_id, chapter_id: @chapter_id, view: 'single', page: 0), class: 'btn btn-single' %>
         <% else %>
           <%= link_to 'View All Pages', manga_chapter_pages_manga_manga_path(id: @manga_id, chapter_id: @chapter_id, view: 'all'), class: 'btn btn-all' %>
         <% end %>
@@ -27,6 +27,9 @@
         <%= image_tag(page, alt: 'Page Image', class: 'chapter-page') %>
       <% end %>
     </div>
+    <div class="up-button-container" style="margin-top: 20px;">
+      <%= link_to 'Up', manga_chapter_pages_manga_manga_path(id: @manga_id, chapter_id: @chapter_id, view: 'all'), class: 'btn btn-up' %>
+    </div>
   <% else %>
     <% if @current_page %>
       <div class="page-container">
@@ -37,7 +40,7 @@
         <% total_pages = [total_pages, 1].max %>
 
         <% if @page_index > 0 %>
-          <%= link_to 'Previous', manga_chapter_pages_manga_manga_path(id: @manga_id, chapter_id: @chapter_id, page: @page_index - 1), class: 'btn btn-prev' %>
+          <%= link_to 'Previous', manga_chapter_pages_manga_manga_path(id: @manga_id, chapter_id: @chapter_id, page: @page_index - 1, view: 'single'), class: 'btn btn-prev' %>
         <% end %>
 
         <span class="page-info">
@@ -45,13 +48,15 @@
         </span>
 
         <% if @page_index < total_pages - 1 %>
-          <%= link_to 'Next', manga_chapter_pages_manga_manga_path(id: @manga_id, chapter_id: @chapter_id, page: @page_index + 1), class: 'btn btn-next' %>
+          <%= link_to 'Next', manga_chapter_pages_manga_manga_path(id: @manga_id, chapter_id: @chapter_id, page: @page_index + 1, view: 'single'), class: 'btn btn-next' %>
         <% end %>
       </div>
     <% else %>
-      <p> No pages available. </p>
+      <p>No pages available.</p>
     <% end %>
   <% end %>
 
-  <%= link_to "Back to Manga", manga_path(@manga_id), class: 'btn btn-back' %>
+  <div class="navigation-buttons" style="margin-top: 20px;">
+    <%= link_to "Back to Manga", manga_path(@manga_id), class: 'btn btn-back', style: 'margin-right: 20px;' %>
+  </div>
 </div>
